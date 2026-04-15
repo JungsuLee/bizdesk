@@ -10,7 +10,6 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 const DEMO_ACCOUNTS = [
-  { email: "superadmin@bizdesk.com", label: "Super Admin (Platform)", role: "Platform Owner" },
   { email: "admin@musicschool.com", label: "Music School NYC", role: "Business Admin" },
   { email: "instructor@musicschool.com", label: "Music School NYC", role: "Senior Instructor" },
   { email: "frontdesk@musicschool.com", label: "Music School NYC", role: "Front Desk" },
