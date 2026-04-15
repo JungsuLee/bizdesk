@@ -1,4 +1,5 @@
-import { PageTable, ColumnDef, FieldDef } from "@/components/shared/PageTable";
+import { ModulePage } from "@/components/shared/ModulePage";
+import { ColumnDef, FieldDef } from "@/components/shared/PageTable";
 
 const COLUMNS: ColumnDef[] = [
   { key: "name", label: "Name" },
@@ -30,20 +31,17 @@ const INITIAL_DATA = [
   { id: "3", name: "Lisa Chen", email: "lisa@bizdesk.com", phone: "555-0203", role: "Dance Instructor", department: "Dance", status: "On Leave", startDate: "2022-03-01" },
 ];
 
-export default function StaffPage() {
+export default function Page() {
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Staff</h1>
-        <p className="text-sm text-gray-500 mt-1">Manage your team members and their details.</p>
-      </div>
-      <PageTable
-        entityName="Staff Member"
-        searchKeys={["name", "email", "role", "department"]}
-        columns={COLUMNS}
-        fields={FIELDS}
-        initialData={INITIAL_DATA}
-      />
-    </div>
+    <ModulePage
+      moduleKey="staff"
+      title="Staff"
+      description="Manage your team members and their details."
+      entityName="Staff Member"
+      searchKeys={["name", "email", "role", "department"]}
+      columns={COLUMNS}
+      fields={FIELDS}
+      initialData={INITIAL_DATA}
+    />
   );
 }

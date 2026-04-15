@@ -1,4 +1,5 @@
-import { PageTable, ColumnDef, FieldDef } from "@/components/shared/PageTable";
+import { ModulePage } from "@/components/shared/ModulePage";
+import { ColumnDef, FieldDef } from "@/components/shared/PageTable";
 
 const COLUMNS: ColumnDef[] = [
   { key: "student", label: "Student" },
@@ -36,20 +37,17 @@ const INITIAL_DATA = [
   { id: "3", student: "Sofia Martinez", instructor: "Lisa Chen", date: "2026-04-10", time: "3:30 PM", duration: "45 min", price: "$55", payment: "Paid", status: "Completed" },
 ];
 
-export default function PrivateLessonsPage() {
+export default function Page() {
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Private Lessons</h1>
-        <p className="text-sm text-gray-500 mt-1">Schedule and track one-on-one lessons.</p>
-      </div>
-      <PageTable
-        entityName="Lesson"
-        searchKeys={["student", "instructor"]}
-        columns={COLUMNS}
-        fields={FIELDS}
-        initialData={INITIAL_DATA}
-      />
-    </div>
+    <ModulePage
+      moduleKey="private-lessons"
+      title="Private Lessons"
+      description="Schedule and track one-on-one lessons."
+      entityName="Lesson"
+      searchKeys={["student", "instructor"]}
+      columns={COLUMNS}
+      fields={FIELDS}
+      initialData={INITIAL_DATA}
+    />
   );
 }

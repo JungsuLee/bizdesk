@@ -1,4 +1,5 @@
-import { PageTable, ColumnDef, FieldDef } from "@/components/shared/PageTable";
+import { ModulePage } from "@/components/shared/ModulePage";
+import { ColumnDef, FieldDef } from "@/components/shared/PageTable";
 
 const COLUMNS: ColumnDef[] = [
   { key: "name", label: "Tool / Equipment" },
@@ -32,20 +33,17 @@ const INITIAL_DATA = [
   { id: "3", name: "Ballet Barre", category: "Dance Equipment", condition: "Fair", assignedTo: "Dance Studio", lastMaintained: "2025-09-15", status: "In Use" },
 ];
 
-export default function ToolsPage() {
+export default function Page() {
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Tools</h1>
-        <p className="text-sm text-gray-500 mt-1">Track equipment, instruments, and facility tools.</p>
-      </div>
-      <PageTable
-        entityName="Tool"
-        searchKeys={["name", "category", "assignedTo"]}
-        columns={COLUMNS}
-        fields={FIELDS}
-        initialData={INITIAL_DATA}
-      />
-    </div>
+    <ModulePage
+      moduleKey="tools"
+      title="Tools"
+      description="Track equipment, instruments, and facility tools."
+      entityName="Tool"
+      searchKeys={["name", "category", "assignedTo"]}
+      columns={COLUMNS}
+      fields={FIELDS}
+      initialData={INITIAL_DATA}
+    />
   );
 }

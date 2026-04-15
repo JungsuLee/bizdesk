@@ -1,4 +1,5 @@
-import { PageTable, ColumnDef, FieldDef } from "@/components/shared/PageTable";
+import { ModulePage } from "@/components/shared/ModulePage";
+import { ColumnDef, FieldDef } from "@/components/shared/PageTable";
 
 const COLUMNS: ColumnDef[] = [
   { key: "name", label: "Name" },
@@ -30,20 +31,17 @@ const INITIAL_DATA = [
   { id: "3", name: "Martinez Private Event", date: "2026-04-25", time: "6:00 PM", partySize: 20, contact: "555-0403", notes: "Main hall", status: "Confirmed" },
 ];
 
-export default function ReservationsPage() {
+export default function Page() {
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Reservations</h1>
-        <p className="text-sm text-gray-500 mt-1">Manage space and facility reservations.</p>
-      </div>
-      <PageTable
-        entityName="Reservation"
-        searchKeys={["name", "contact", "notes"]}
-        columns={COLUMNS}
-        fields={FIELDS}
-        initialData={INITIAL_DATA}
-      />
-    </div>
+    <ModulePage
+      moduleKey="reservations"
+      title="Reservations"
+      description="Manage space and facility reservations."
+      entityName="Reservation"
+      searchKeys={["name", "contact", "notes"]}
+      columns={COLUMNS}
+      fields={FIELDS}
+      initialData={INITIAL_DATA}
+    />
   );
 }

@@ -52,6 +52,7 @@ type Props = {
   columns: ColumnDef[];
   fields: FieldDef[];
   initialData: Row[];
+  permission?: "read" | "write";
 };
 
 function makeEmptyForm(fields: FieldDef[]): Row {
@@ -68,7 +69,9 @@ export function PageTable({
   columns,
   fields,
   initialData,
+  permission = "write",
 }: Props) {
+  const canWrite = permission === "write";
   const [rows, setRows] = useState<Row[]>(initialData);
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
@@ -122,7 +125,7 @@ export function PageTable({
           onChange={(e) => setSearch(e.target.value)}
           className="max-w-xs"
         />
-        <Button onClick={openAdd}>+ Add {entityName}</Button>
+        {canWrite && <Button onClick={openAdd}>+ Add {entityName}</Button>}
       </div>
 
       <div className="rounded-lg border bg-white overflow-hidden">
@@ -168,20 +171,14 @@ export function PageTable({
                     </TableCell>
                   ))}
                   <TableCell className="text-right space-x-2">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => openEdit(row)}
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="destructive"
-                      onClick={() => handleDelete(row.id)}
-                    >
-                      Delete
-                    </Button>
+                    {canWrite ? (
+                      <>
+                        <Button size="sm" variant="outline" onClick={() => openEdit(row)}>Edit</Button>
+                        <Button size="sm" variant="destructive" onClick={() => handleDelete(row.id)}>Delete</Button>
+                      </>
+                    ) : (
+                      <span className="text-xs text-gray-400 italic">Read only</span>
+                    )}
                   </TableCell>
                 </TableRow>
               ))

@@ -1,4 +1,5 @@
-import { PageTable, ColumnDef, FieldDef } from "@/components/shared/PageTable";
+import { ModulePage } from "@/components/shared/ModulePage";
+import { ColumnDef, FieldDef } from "@/components/shared/PageTable";
 
 const COLUMNS: ColumnDef[] = [
   { key: "name", label: "Product Name" },
@@ -26,20 +27,17 @@ const INITIAL_DATA = [
   { id: "3", name: "Music Theory Flashcards", category: "Books", price: "$14.99", stock: 0, status: "Out of Stock" },
 ];
 
-export default function ProductsPage() {
+export default function Page() {
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Products</h1>
-        <p className="text-sm text-gray-500 mt-1">Manage inventory and product listings.</p>
-      </div>
-      <PageTable
-        entityName="Product"
-        searchKeys={["name", "category"]}
-        columns={COLUMNS}
-        fields={FIELDS}
-        initialData={INITIAL_DATA}
-      />
-    </div>
+    <ModulePage
+      moduleKey="products"
+      title="Products"
+      description="Manage inventory and product listings."
+      entityName="Product"
+      searchKeys={["name", "category"]}
+      columns={COLUMNS}
+      fields={FIELDS}
+      initialData={INITIAL_DATA}
+    />
   );
 }

@@ -1,4 +1,5 @@
-import { PageTable, ColumnDef, FieldDef } from "@/components/shared/PageTable";
+import { ModulePage } from "@/components/shared/ModulePage";
+import { ColumnDef, FieldDef } from "@/components/shared/PageTable";
 
 const COLUMNS: ColumnDef[] = [
   { key: "name", label: "Class Name" },
@@ -34,20 +35,17 @@ const INITIAL_DATA = [
   { id: "3", name: "Music Theory 101", instructor: "John Park", day: "Friday", time: "2:00 PM", duration: "60 min", capacity: 20, enrolled: 5, price: "$40", status: "Active" },
 ];
 
-export default function ClassesPage() {
+export default function Page() {
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Classes</h1>
-        <p className="text-sm text-gray-500 mt-1">Schedule and manage group classes.</p>
-      </div>
-      <PageTable
-        entityName="Class"
-        searchKeys={["name", "instructor", "day"]}
-        columns={COLUMNS}
-        fields={FIELDS}
-        initialData={INITIAL_DATA}
-      />
-    </div>
+    <ModulePage
+      moduleKey="classes"
+      title="Classes"
+      description="Schedule and manage group classes."
+      entityName="Class"
+      searchKeys={["name", "instructor", "day"]}
+      columns={COLUMNS}
+      fields={FIELDS}
+      initialData={INITIAL_DATA}
+    />
   );
 }

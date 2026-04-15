@@ -1,4 +1,5 @@
-import { PageTable, ColumnDef, FieldDef } from "@/components/shared/PageTable";
+import { ModulePage } from "@/components/shared/ModulePage";
+import { ColumnDef, FieldDef } from "@/components/shared/PageTable";
 
 const COLUMNS: ColumnDef[] = [
   { key: "name", label: "Event Name" },
@@ -30,20 +31,17 @@ const INITIAL_DATA = [
   { id: "3", name: "Winter Concert", date: "2025-12-15", time: "7:00 PM", location: "City Theater", capacity: 500, price: "$20", status: "Completed" },
 ];
 
-export default function EventsPage() {
+export default function Page() {
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Events</h1>
-        <p className="text-sm text-gray-500 mt-1">Manage performances, recitals, and public events.</p>
-      </div>
-      <PageTable
-        entityName="Event"
-        searchKeys={["name", "location"]}
-        columns={COLUMNS}
-        fields={FIELDS}
-        initialData={INITIAL_DATA}
-      />
-    </div>
+    <ModulePage
+      moduleKey="events"
+      title="Events"
+      description="Manage performances, recitals, and public events."
+      entityName="Event"
+      searchKeys={["name", "location"]}
+      columns={COLUMNS}
+      fields={FIELDS}
+      initialData={INITIAL_DATA}
+    />
   );
 }

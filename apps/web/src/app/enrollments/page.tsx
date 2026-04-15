@@ -1,4 +1,5 @@
-import { PageTable, ColumnDef, FieldDef } from "@/components/shared/PageTable";
+import { ModulePage } from "@/components/shared/ModulePage";
+import { ColumnDef, FieldDef } from "@/components/shared/PageTable";
 
 const COLUMNS: ColumnDef[] = [
   { key: "student", label: "Student" },
@@ -32,20 +33,17 @@ const INITIAL_DATA = [
   { id: "3", student: "Sofia Martinez", course: "Contemporary Dance", enrolledDate: "2024-08-15", amount: "$320", payment: "Overdue", status: "Dropped" },
 ];
 
-export default function EnrollmentsPage() {
+export default function Page() {
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Enrollments</h1>
-        <p className="text-sm text-gray-500 mt-1">Track student enrollments and payment status.</p>
-      </div>
-      <PageTable
-        entityName="Enrollment"
-        searchKeys={["student", "course"]}
-        columns={COLUMNS}
-        fields={FIELDS}
-        initialData={INITIAL_DATA}
-      />
-    </div>
+    <ModulePage
+      moduleKey="enrollments"
+      title="Enrollments"
+      description="Track student enrollments and payment status."
+      entityName="Enrollment"
+      searchKeys={["student", "course"]}
+      columns={COLUMNS}
+      fields={FIELDS}
+      initialData={INITIAL_DATA}
+    />
   );
 }
