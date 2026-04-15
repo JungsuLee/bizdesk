@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import { getFirstAccessibleRoute } from "@/lib/demo-data";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -34,11 +35,7 @@ export default function LoginPage() {
       setError(result.error || "Invalid credentials.");
       return;
     }
-    if (result.user?.isSuperAdmin) {
-      router.replace("/superadmin");
-    } else {
-      router.replace("/staff");
-    }
+    router.replace(getFirstAccessibleRoute(result.user!));
   }
 
   function fillDemo(demoEmail: string) {

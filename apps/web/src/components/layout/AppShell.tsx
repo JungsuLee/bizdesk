@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { BusinessConfigProvider } from "@/context/BusinessConfigContext";
+import { getFirstAccessibleRoute } from "@/lib/demo-data";
 import { Sidebar } from "./Sidebar";
 
 const PUBLIC = ["/login"];
@@ -20,14 +21,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     if (loading) return;
     if (!user && !isPublic) { router.replace("/login"); return; }
     if (user && isPublic) {
-      router.replace(user.isSuperAdmin ? "/superadmin" : "/staff");
+      router.replace(getFirstAccessibleRoute(user));
       return;
     }
     if (user?.isSuperAdmin && !isSuperAdmin && !isPublic) {
       router.replace("/superadmin");
     }
     if (user && !user.isSuperAdmin && isSuperAdmin) {
-      router.replace("/staff");
+      router.replace(getFirstAccessibleRoute(user));
     }
   }, [user, loading, isPublic, isSuperAdmin, pathname, router]);
 

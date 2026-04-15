@@ -134,6 +134,49 @@ export function findUserByEmail(email: string): User | undefined {
   return USERS.find((u) => u.email.toLowerCase() === email.toLowerCase());
 }
 
+const MODULE_ROUTE_ORDER = [
+  "staff", "students", "classes", "courses", "private-lessons",
+  "enrollments", "events", "conferences", "fundraising",
+  "products", "reservations", "tools",
+];
+
+export function getFirstAccessibleRoute(user: User): string {
+  if (user.isSuperAdmin) return "/superadmin";
+
+  const business = BUSINESSES.find((b) => b.id === user.businessId);
+  if (!business) return "/login";
+
+  // Read runtime config from localStorage if available
+  const savedModules = typeof window !== "undefined"
+    ? localStorage.getItem(`bizdesk_modules_${user.businessId}`)
+    : null;
+  const enabledModules: string[] = savedModules
+    ? JSON.parse(savedModules)
+    : business.enabledModules;
+
+  // Business admin → first enabled module
+  if (user.isBusinessAdmin) {
+    const first = MODULE_ROUTE_ORDER.find((m) => enabledModules.includes(m));
+    return first ? `/${first}` : "/settings/modules";
+  }
+
+  // Custom role → first module where permission !== "none"
+  const savedRoles = typeof window !== "undefined"
+    ? localStorage.getItem(`bizdesk_roles_${user.businessId}`)
+    : null;
+  const roles: Role[] = savedRoles
+    ? JSON.parse(savedRoles)
+    : ROLES.filter((r) => r.businessId === user.businessId);
+
+  const role = roles.find((r) => r.id === user.roleId);
+  if (!role) return "/login";
+
+  const first = MODULE_ROUTE_ORDER.find(
+    (m) => enabledModules.includes(m) && role.permissions[m] !== "none"
+  );
+  return first ? `/${first}` : "/login";
+}
+
 export function getBusiness(id: string): Business | undefined {
   return BUSINESSES.find((b) => b.id === id);
 }
